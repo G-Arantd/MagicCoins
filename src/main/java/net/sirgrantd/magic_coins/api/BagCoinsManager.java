@@ -39,5 +39,4 @@ public class BagCoinsManager {
     public static boolean hasCapability(Entity entity) {
         return entity.getData(CoinsBagCapabilities.COINS_IN_BAG) != null;
     }
-
 }

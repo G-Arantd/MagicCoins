@@ -1,18 +1,8 @@
 {
-  "magic_bag.collect_coins": {
+  "collect_coins": {
+    "subtitle": "sounds.magic_coins.collect_coins",
     "sounds": [
-      {
-        "name": "magic_coins:collect_coins",
-        "stream": false
-      }
-    ]
-  },
-  "magic_bag.coins_into_bag": {
-    "sounds": [
-      {
-        "name": "magic_coins:coins_into_bag",
-        "stream": false
-      }
+      "magic_coins:collect_coins"
     ]
   }
 }

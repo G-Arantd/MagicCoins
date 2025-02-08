@@ -5,12 +5,15 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.resources.ResourceLocation;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.sirgrantd.magic_coins.MagicCoinsMod;
 import net.sirgrantd.magic_coins.common.gui.links.buttons.HandlerButton;
+import net.sirgrantd.magic_coins.init.MagicCoinsSounds;
 
 @OnlyIn(Dist.CLIENT)
 public class CustomButton extends ImageButton{
@@ -41,6 +44,11 @@ public class CustomButton extends ImageButton{
         this.parentGui = parentGui;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
+    }
+
+    @Override
+    public void playDownSound(SoundManager soundHandler) {
+        soundHandler.play(SimpleSoundInstance.forUI(MagicCoinsSounds.MAGIC_BAG_COLLECT_COINS.get(), 1.25F));
     }
 
     @Override

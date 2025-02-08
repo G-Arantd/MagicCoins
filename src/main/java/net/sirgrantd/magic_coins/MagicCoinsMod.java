@@ -1,6 +1,7 @@
 package net.sirgrantd.magic_coins;
 
 import net.sirgrantd.magic_coins.init.MagicCoinsItems;
+import net.sirgrantd.magic_coins.init.MagicCoinsSounds;
 import net.sirgrantd.magic_coins.init.ItemGroups;
 import net.sirgrantd.magic_coins.client.gui.MagicCoinsInventory;
 import net.sirgrantd.magic_coins.common.capabilities.CoinsBagCapabilities;
@@ -45,11 +46,14 @@ public class MagicCoinsMod {
 		NeoForge.EVENT_BUS.register(this);
 		modEventBus.addListener(this::registerNetworking);
 
-		MagicCoinsItems.REGISTRY.register(modEventBus);
 		ItemGroups.REGISTRY.register(modEventBus);
+		MagicCoinsItems.REGISTRY.register(modEventBus);
+		
+		MagicCoinsSounds.register(modEventBus);
+		
 		CoinsBagCapabilities.ATTACHMENT_TYPES.register(modEventBus);
-
-		modContainer.registerConfig(ModConfig.Type.COMMON, MagicCoinsConfig.Coins.SPEC, String.format("%s-common.toml", MODID));
+		
+		modContainer.registerConfig(ModConfig.Type.COMMON, MagicCoinsConfig.Config.SPEC, String.format("%s-common.toml", MODID));
 	}
 
 	@EventBusSubscriber(modid = MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)

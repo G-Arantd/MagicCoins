@@ -15,14 +15,14 @@ public class MagicCoinsConfig {
     public static int goldCoinsValue;
     public static int crystalCoinsValue;
 
-    public static class Coins {
+    public static class Config {
         public static final Supplier<Integer> GOLD_COIN_VALUE;
         public static final Supplier<Integer> CRYSTAL_COIN_VALUE;
 
         static {
             ModConfigSpec.Builder CONFIG_BUILDER = new ModConfigSpec.Builder();
-
-            CONFIG_BUILDER.push("coins");
+            
+            CONFIG_BUILDER.push("COINS");
 
             GOLD_COIN_VALUE = CONFIG_BUILDER
                 .comment("The value of a gold coin")
@@ -41,8 +41,8 @@ public class MagicCoinsConfig {
     }
 
     private static void bakeConfig() {
-        goldCoinsValue = Coins.GOLD_COIN_VALUE.get();
-        crystalCoinsValue = Coins.CRYSTAL_COIN_VALUE.get();
+        goldCoinsValue = Config.GOLD_COIN_VALUE.get();
+        crystalCoinsValue = Config.CRYSTAL_COIN_VALUE.get();
     }
 
     @SubscribeEvent

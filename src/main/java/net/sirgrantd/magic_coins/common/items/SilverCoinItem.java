@@ -2,6 +2,8 @@ package net.sirgrantd.magic_coins.common.items;
 
 import net.neoforged.api.distmarker.OnlyIn;
 import net.sirgrantd.magic_coins.api.BagCoinsManager;
+import net.sirgrantd.magic_coins.api.CoinsValuesManager;
+import net.sirgrantd.magic_coins.init.MagicCoinsSounds;
 import net.neoforged.api.distmarker.Dist;
 
 import net.minecraft.world.item.Rarity;
@@ -13,12 +15,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
 public class SilverCoinItem extends Item {
-    public static int getCoinsValue() {
-        return 1;
-    }
-
     public SilverCoinItem() {
         super(new Item.Properties().stacksTo(64).fireResistant().rarity(Rarity.UNCOMMON));
+    }
+
+    public static int getCoinsValue() {
+        return CoinsValuesManager.getValueSilverCoins();
     }
 
     @Override
@@ -29,6 +31,10 @@ public class SilverCoinItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        if (!world.isClientSide) {
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), MagicCoinsSounds.MAGIC_BAG_COLLECT_COINS.get(), player.getSoundSource());
+        }
+
         ItemStack itemStack = player.getItemInHand(hand);
         int coinsInStack = itemStack.getCount();
         BagCoinsManager.addValueTotalInCoins(player, coinsInStack*getCoinsValue());
