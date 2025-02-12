@@ -4,8 +4,9 @@ import net.sirgrantd.magic_coins.init.MagicCoinsItems;
 import net.sirgrantd.magic_coins.init.MagicCoinsSounds;
 import net.sirgrantd.magic_coins.init.ItemGroups;
 import net.sirgrantd.magic_coins.client.gui.MagicCoinsInventory;
+import net.sirgrantd.magic_coins.client.gui.config.ClientConfig;
 import net.sirgrantd.magic_coins.common.capabilities.CoinsBagCapabilities;
-import net.sirgrantd.magic_coins.config.MagicCoinsConfig;
+import net.sirgrantd.magic_coins.common.config.CommonConfig;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -53,7 +54,8 @@ public class MagicCoinsMod {
 		
 		CoinsBagCapabilities.ATTACHMENT_TYPES.register(modEventBus);
 		
-		modContainer.registerConfig(ModConfig.Type.COMMON, MagicCoinsConfig.Config.SPEC, String.format("%s-common.toml", MODID));
+		modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.Config.SPEC, String.format("%s-common.toml", MODID));
+		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.Config.SPEC, String.format("%s-client.toml", MODID));
 	}
 
 	@EventBusSubscriber(modid = MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)

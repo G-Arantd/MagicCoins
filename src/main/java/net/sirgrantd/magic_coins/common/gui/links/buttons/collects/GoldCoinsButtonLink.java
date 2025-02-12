@@ -1,8 +1,8 @@
-package net.sirgrantd.magic_coins.common.gui.links.buttons;
+package net.sirgrantd.magic_coins.common.gui.links.buttons.collects;
 
 import net.sirgrantd.magic_coins.MagicCoinsMod;
 import net.sirgrantd.magic_coins.api.BagCoinsManager;
-import net.sirgrantd.magic_coins.common.items.SilverCoinItem;
+import net.sirgrantd.magic_coins.common.items.GoldCoinItem;
 import net.sirgrantd.magic_coins.init.MagicCoinsItems;
 
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -20,21 +20,21 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
-public record SilverCoinsButtonLink(int x, int y, int z) implements CustomPacketPayload {
+public record GoldCoinsButtonLink(int x, int y, int z) implements CustomPacketPayload {
 
-    public static final Type<SilverCoinsButtonLink> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(MagicCoinsMod.MODID, "silver_coins_button"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SilverCoinsButtonLink> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, SilverCoinsButtonLink message) -> {
+    public static final Type<GoldCoinsButtonLink> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(MagicCoinsMod.MODID, "gold_coins_button"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, GoldCoinsButtonLink> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, GoldCoinsButtonLink message) -> {
         buffer.writeInt(message.x);
 		buffer.writeInt(message.y);
 		buffer.writeInt(message.z);
-    }, (RegistryFriendlyByteBuf buffer) -> new SilverCoinsButtonLink(buffer.readInt(), buffer.readInt(), buffer.readInt()));
+    }, (RegistryFriendlyByteBuf buffer) -> new GoldCoinsButtonLink(buffer.readInt(), buffer.readInt(), buffer.readInt()));
 
     @Override
-    public Type<SilverCoinsButtonLink> type() {
+    public Type<GoldCoinsButtonLink> type() {
         return TYPE;
     }
 
-    public static void handleData(final SilverCoinsButtonLink message, final IPayloadContext context) {
+    public static void handleData(final GoldCoinsButtonLink message, final IPayloadContext context) {
         if (context.flow() == PacketFlow.SERVERBOUND) {
             context.enqueueWork(() -> {
 				Player entity = context.player();
@@ -50,23 +50,23 @@ public record SilverCoinsButtonLink(int x, int y, int z) implements CustomPacket
     }
 
     public static void handleButtonAction(Player player, int x, int y, int z) {
-        int valueCoins = SilverCoinItem.getCoinsValue();
+        int valueCoins = GoldCoinItem.getCoinsValue();
 
         int totalCoins = BagCoinsManager.getValueTotalInCoins(player);
 
         if (totalCoins >= valueCoins) {
             BagCoinsManager.removeValueTotalInCoins(player, valueCoins);
 
-            ItemStack silverCoin = new ItemStack(MagicCoinsItems.SILVER_COIN.get());
-            if (!player.addItem(silverCoin)) {
-                player.drop(silverCoin, false);
+            ItemStack goldCoin = new ItemStack(MagicCoinsItems.GOLD_COIN.get());
+            if (!player.addItem(goldCoin)) {
+                player.drop(goldCoin, false);
             }
         }
     }
 
     @SubscribeEvent
     public static void registerMessage(FMLCommonSetupEvent event) {
-        MagicCoinsMod.addNetworkMessage(SilverCoinsButtonLink.TYPE, SilverCoinsButtonLink.STREAM_CODEC, SilverCoinsButtonLink::handleData);
+        MagicCoinsMod.addNetworkMessage(GoldCoinsButtonLink.TYPE, GoldCoinsButtonLink.STREAM_CODEC, GoldCoinsButtonLink::handleData);
     }
 
 }

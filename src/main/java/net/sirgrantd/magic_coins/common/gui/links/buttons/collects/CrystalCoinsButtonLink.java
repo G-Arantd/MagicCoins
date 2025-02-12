@@ -1,4 +1,4 @@
-package net.sirgrantd.magic_coins.common.gui.links.buttons;
+package net.sirgrantd.magic_coins.common.gui.links.buttons.collects;
 
 import net.sirgrantd.magic_coins.MagicCoinsMod;
 import net.sirgrantd.magic_coins.api.BagCoinsManager;

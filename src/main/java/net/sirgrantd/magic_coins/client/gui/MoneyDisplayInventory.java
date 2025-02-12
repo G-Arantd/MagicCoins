@@ -12,6 +12,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.sirgrantd.magic_coins.api.BagCoinsManager;
+import net.sirgrantd.magic_coins.client.gui.config.ClientConfig;
 import net.sirgrantd.magic_coins.client.gui.image.ImageDisplayRender;
 import net.sirgrantd.magic_coins.client.gui.text.TextDisplayRender;
 import top.theillusivec4.curios.api.client.ICuriosScreen;
@@ -29,11 +30,11 @@ public class MoneyDisplayInventory {
             Player player = Minecraft.getInstance().player;
             String valueTotalCoins = String.valueOf(BagCoinsManager.getValueTotalInCoins(player));
 
-            int xOffsetImage = isCreative ? 0 : 0;
-            int yOffsetImage = isCreative ? -75 : -28;
+            int xOffsetImage = isCreative ? 0 + ClientConfig.xDisplayCoins : 0 + ClientConfig.xDisplayCoins;
+            int yOffsetImage = isCreative ? -75 + ClientConfig.xDisplayCoins : -28 + ClientConfig.xDisplayCoins;
 
-            int xOffsetText = 25;
-            int yOffsetText = isCreative ? -67 : -20;
+            int xOffsetText = 25 + ClientConfig.xDisplayCoins;
+            int yOffsetText = isCreative ? -67 + ClientConfig.xDisplayCoins : -20 + ClientConfig.xDisplayCoins;
 
             ImageDisplayRender displayRender = new ImageDisplayRender(gui, xOffsetImage, yOffsetImage, ImageDisplayRender.DISPLAY_VIEW);
             displayRender.renderWidget(event.getGuiGraphics(), 80, 23);

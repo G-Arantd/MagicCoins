@@ -1,14 +1,14 @@
-package net.sirgrantd.magic_coins.common.gui.links.buttons;
+package net.sirgrantd.magic_coins.common.gui.links.buttons.collects;
 
 import net.sirgrantd.magic_coins.MagicCoinsMod;
 import net.sirgrantd.magic_coins.api.BagCoinsManager;
 import net.sirgrantd.magic_coins.common.items.CrystalCoinItem;
 import net.sirgrantd.magic_coins.common.items.GoldCoinItem;
 import net.sirgrantd.magic_coins.common.items.SilverCoinItem;
+import net.sirgrantd.magic_coins.common.utils.Utils;
 import net.sirgrantd.magic_coins.init.MagicCoinsItems;
 
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -16,8 +16,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
 
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.PacketFlow;
@@ -61,13 +59,13 @@ public record CollectCoinsInventoryLink(int x, int y, int z) implements CustomPa
         }
 
         if (player.getCapability(Capabilities.ItemHandler.ENTITY, null) instanceof IItemHandlerModifiable itemHandlerModifiable) {
-            int silverCoins = countItems(itemHandlerModifiable, MagicCoinsItems.SILVER_COIN.get());
-            int goldCoins = countItems(itemHandlerModifiable, MagicCoinsItems.GOLD_COIN.get());
-            int crystalCoins = countItems(itemHandlerModifiable, MagicCoinsItems.CRYSTAL_COIN.get());
+            int silverCoins = Utils.countItems(itemHandlerModifiable, MagicCoinsItems.SILVER_COIN.get());
+            int goldCoins = Utils.countItems(itemHandlerModifiable, MagicCoinsItems.GOLD_COIN.get());
+            int crystalCoins = Utils.countItems(itemHandlerModifiable, MagicCoinsItems.CRYSTAL_COIN.get());
 
-            removeItemsFromInventory(player, MagicCoinsItems.SILVER_COIN.get(), silverCoins);
-            removeItemsFromInventory(player, MagicCoinsItems.GOLD_COIN.get(), goldCoins);
-            removeItemsFromInventory(player, MagicCoinsItems.CRYSTAL_COIN.get(), crystalCoins);
+            Utils.removeItemsFromInventory(player, MagicCoinsItems.SILVER_COIN.get(), silverCoins);
+            Utils.removeItemsFromInventory(player, MagicCoinsItems.GOLD_COIN.get(), goldCoins);
+            Utils.removeItemsFromInventory(player, MagicCoinsItems.CRYSTAL_COIN.get(), crystalCoins);
 
             int totalCoins = 
                 silverCoins * SilverCoinItem.getCoinsValue() +
@@ -76,23 +74,6 @@ public record CollectCoinsInventoryLink(int x, int y, int z) implements CustomPa
 
             BagCoinsManager.addValueTotalInCoins(player, totalCoins);
         }
-    }
-
-    private static int countItems(IItemHandler itemHandler, Item item) {
-        int count = 0;
-        for (int slotIndex = 0; slotIndex < itemHandler.getSlots(); slotIndex++) {
-            ItemStack itemStack = itemHandler.getStackInSlot(slotIndex);
-            if (itemStack.getItem() == item) {
-                count += itemStack.getCount();
-            }
-        }
-        return count;
-    }
-
-    private static void removeItemsFromInventory(Player player, Item item, int quantity) {
-        player.getInventory().clearOrCountMatchingItems(
-            stack -> stack.getItem() == item, quantity, player.inventoryMenu.getCraftSlots()
-        );
     }
 
     @SubscribeEvent

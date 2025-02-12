@@ -1,4 +1,4 @@
-package net.sirgrantd.magic_coins.config;
+package net.sirgrantd.magic_coins.common.config;
 
 import java.util.function.Supplier;
 
@@ -10,7 +10,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import net.sirgrantd.magic_coins.MagicCoinsMod;
 
 @EventBusSubscriber(modid = MagicCoinsMod.MODID, bus = EventBusSubscriber.Bus.MOD)
-public class MagicCoinsConfig {
+public class CommonConfig {
 
     public static int goldCoinsValue;
     public static int crystalCoinsValue;

@@ -1,6 +1,6 @@
 package net.sirgrantd.magic_coins.api;
 
-import net.sirgrantd.magic_coins.config.MagicCoinsConfig;
+import net.sirgrantd.magic_coins.common.config.CommonConfig;
 
 public class CoinsValuesManager {
 
@@ -9,11 +9,11 @@ public class CoinsValuesManager {
     }
 
     public static int getValueGoldCoins() {
-        return MagicCoinsConfig.goldCoinsValue;
+        return CommonConfig.goldCoinsValue;
     }
 
     public static int getValueCrystalCoins() {
-        return MagicCoinsConfig.crystalCoinsValue;
+        return CommonConfig.crystalCoinsValue;
     }
     
 }
