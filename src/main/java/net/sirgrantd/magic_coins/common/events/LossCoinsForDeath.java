@@ -7,6 +7,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.Entity;
+import net.sirgrantd.magic_coins.common.config.CommonConfig;
 
 @EventBusSubscriber
 public class LossCoinsForDeath {
@@ -24,7 +25,7 @@ public class LossCoinsForDeath {
         boolean isCoinsLostOnDeath = BagCoinsManager.getIsCoinsLostOnDeath(player);
 
         if (totalCoins > 0) {
-            double lossFactor = isCoinsLostOnDeath ? 1.0 : 0.5;
+            double lossFactor = isCoinsLostOnDeath ? 1.0 : (1.0 - CommonConfig.coinLossFactor);
 
             int newTotalCoins = (int) Math.round(totalCoins * lossFactor);
             BagCoinsManager.setValueTotalInCoins(player, newTotalCoins);
