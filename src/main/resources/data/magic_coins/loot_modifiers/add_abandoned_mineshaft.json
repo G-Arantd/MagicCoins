@@ -1,0 +1,23 @@
+{
+  "type": "magic_coins:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+    }
+  ],
+  "items": [
+    {
+      "item": "magic_coins:silver_coin",
+      "chance": 0.7,
+      "min": 5,
+      "max": 10
+    },
+    {
+      "item": "magic_coins:gold_coin",
+      "chance": 0.2,
+      "min": 1,
+      "max": 2
+    }
+  ]
+}

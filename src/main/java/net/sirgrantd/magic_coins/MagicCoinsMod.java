@@ -1,13 +1,5 @@
 package net.sirgrantd.magic_coins;
 
-import net.sirgrantd.magic_coins.init.MagicCoinsItems;
-import net.sirgrantd.magic_coins.init.MagicCoinsSounds;
-import net.sirgrantd.magic_coins.init.ItemGroups;
-import net.sirgrantd.magic_coins.client.gui.MagicCoinsInventory;
-import net.sirgrantd.magic_coins.client.gui.config.ClientConfig;
-import net.sirgrantd.magic_coins.common.capabilities.CoinsBagCapabilities;
-import net.sirgrantd.magic_coins.common.config.CommonConfig;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -38,6 +30,15 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.ArrayList;
 
+import net.sirgrantd.magic_coins.capabilities.CoinsBagCapabilities;
+import net.sirgrantd.magic_coins.config.ClientConfig;
+import net.sirgrantd.magic_coins.config.ServerConfig;
+import net.sirgrantd.magic_coins.gui.MagicCoinsButtonInventory;
+import net.sirgrantd.magic_coins.init.ItemsInit;
+import net.sirgrantd.magic_coins.init.LootInit;
+import net.sirgrantd.magic_coins.init.SoundsInit;
+import net.sirgrantd.magic_coins.init.TabsInit;
+
 @Mod("magic_coins")
 public class MagicCoinsMod {
 	public static final Logger LOGGER = LogManager.getLogger(MagicCoinsMod.class);
@@ -47,15 +48,16 @@ public class MagicCoinsMod {
 		NeoForge.EVENT_BUS.register(this);
 		modEventBus.addListener(this::registerNetworking);
 
-		ItemGroups.REGISTRY.register(modEventBus);
-		MagicCoinsItems.REGISTRY.register(modEventBus);
-		
-		MagicCoinsSounds.register(modEventBus);
-		
+		TabsInit.REGISTRY.register(modEventBus);
+		ItemsInit.REGISTRY.register(modEventBus);
+
+		LootInit.register(modEventBus);
+		SoundsInit.register(modEventBus);
+
 		CoinsBagCapabilities.ATTACHMENT_TYPES.register(modEventBus);
-		
-		modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.Config.SPEC, String.format("%s-common.toml", MODID));
+
 		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.Config.SPEC, String.format("%s-client.toml", MODID));
+		modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.Config.SPEC, String.format("%s-server.toml", MODID));
 	}
 
 	@EventBusSubscriber(modid = MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
@@ -63,7 +65,7 @@ public class MagicCoinsMod {
 		
 		@SubscribeEvent
 		public static void setupClient(FMLClientSetupEvent event) {
-			NeoForge.EVENT_BUS.register(new MagicCoinsInventory());
+			NeoForge.EVENT_BUS.register(new MagicCoinsButtonInventory());
 		}
 	}
 

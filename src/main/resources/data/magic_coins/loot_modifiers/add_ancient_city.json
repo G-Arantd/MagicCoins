@@ -1,0 +1,30 @@
+{
+    "type": "magic_coins:add_item",
+    "conditions": [
+      {
+        "condition": "neoforge:loot_table_id",
+        "loot_table_id": "minecraft:chests/ancient_city"
+      }
+    ],
+    "items": [
+      {
+        "item": "magic_coins:silver_coin",
+        "chance": 0.9,
+        "min": 20,
+        "max": 30
+      },
+      {
+        "item": "magic_coins:gold_coin",
+        "chance": 0.4,
+        "min": 3,
+        "max": 5
+      },
+      {
+        "item": "magic_coins:crystal_coin",
+        "chance": 0.1,
+        "min": 1,
+        "max": 2
+      }
+    ]
+  }
+  
