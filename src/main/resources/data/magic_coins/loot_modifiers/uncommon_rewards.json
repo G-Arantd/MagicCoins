@@ -1,0 +1,32 @@
+{
+  "type": "magic_coins:add_item",
+  "conditions": [],
+  "loot_tables": [
+    "minecraft:chests/abandoned_mineshaft",
+    "minecraft:chests/buried_treasure",
+    "minecraft:chests/desert_pyramid",
+    "minecraft:chests/jungle_temple",
+    "minecraft:chests/pillager_outpost",
+    "minecraft:chests/ruined_portal",
+    "minecraft:chests/shipwreck_treasure",
+    "minecraft:chests/simple_dungeon",
+    "minecraft:chests/stronghold_corridor",
+    "minecraft:chests/stronghold_crossing",
+    "minecraft:chests/stronghold_library",
+    "minecraft:chests/underwater_ruin_big"
+  ],
+  "items": [
+    {
+      "item": "magic_coins:silver_coin",
+      "chance": 0.75,
+      "min": 5,
+      "max": 10
+    },
+    {
+      "item": "magic_coins:gold_coin",
+      "chance": 0.20,
+      "min": 1,
+      "max": 2
+    }
+  ]
+}

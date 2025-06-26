@@ -235,7 +235,7 @@ public class ClientConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent event) {
-        if (event.getConfig().getType() == ModConfig.Type.CLIENT) {
+        if (event.getConfig().getType() == ModConfig.Type.CLIENT && event.getConfig().getSpec() == Config.SPEC) {
             bakeConfig();
         }
     }

@@ -25,7 +25,7 @@ public class MagicCoinsButtonInventory {
             boolean isCurios = screen instanceof ICuriosScreen;
             
             int xOffsetCollectCoins = isCreative ? 3 + ClientConfig.xDisplayCoins : 3 + ClientConfig.xDisplayCoins;
-            int yOffsetCollectCoins = isCreative ? -72 + ClientConfig.xDisplayCoins : -25 + ClientConfig.xDisplayCoins;
+            int yOffsetCollectCoins = isCreative ? -72 + ClientConfig.yDisplayCoins : -25 + ClientConfig.yDisplayCoins;
 
             CustomButton collectCoinsButton = new CustomButton(gui, xOffsetCollectCoins, yOffsetCollectCoins, 0, 0, 17, 17, CustomButton.COLLECT_COINS_ICON, HandlerButton.COLLECT_COINS_FUNC);
             event.addListener(collectCoinsButton);

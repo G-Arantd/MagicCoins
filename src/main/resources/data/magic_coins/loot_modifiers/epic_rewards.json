@@ -1,12 +1,13 @@
 {
-    "type": "magic_coins:add_item",
-    "conditions": [
-      {
-        "condition": "neoforge:loot_table_id",
-        "loot_table_id": "minecraft:chests/ancient_city_ice_box"
-      }
-    ],
-    "items": [
+  "type": "magic_coins:add_item",
+  "conditions": [],
+  "loot_tables": [
+    "minecraft:chests/ancient_city",
+    "minecraft:chests/ancient_city_ice_box",
+    "minecraft:chests/bastion_treasure",
+    "minecraft:chests/woodland_mansion"
+  ],
+  "items": [
     {
       "item": "magic_coins:silver_coin",
       "chance": 0.9,
@@ -15,7 +16,7 @@
     },
     {
       "item": "magic_coins:gold_coin",
-      "chance": 0.4,
+      "chance": 0.5,
       "min": 3,
       "max": 5
     },
@@ -26,5 +27,4 @@
       "max": 2
     }
   ]
-  }
-  
+}

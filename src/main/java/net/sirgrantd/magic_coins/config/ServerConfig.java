@@ -79,7 +79,7 @@ public class ServerConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent event) {
-        if (event.getConfig().getType() == ModConfig.Type.SERVER) {
+        if (event.getConfig().getType() == ModConfig.Type.SERVER && event.getConfig().getSpec() == Config.SPEC) {
             bakeConfig();
         }
     }

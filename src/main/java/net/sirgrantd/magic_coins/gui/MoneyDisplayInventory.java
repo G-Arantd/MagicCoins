@@ -34,10 +34,10 @@ public class MoneyDisplayInventory {
             String valueTotalCoins = String.valueOf(MagicCoinsApi.getTotalCoins(player));
 
             int xOffsetImage = isCreative ? 0 + ClientConfig.xDisplayCoins : 0 + ClientConfig.xDisplayCoins;
-            int yOffsetImage = isCreative ? -75 + ClientConfig.xDisplayCoins : -28 + ClientConfig.xDisplayCoins;
+            int yOffsetImage = isCreative ? -75 + ClientConfig.yDisplayCoins : -28 + ClientConfig.yDisplayCoins;
 
             int xOffsetText = 25 + ClientConfig.xDisplayCoins;
-            int yOffsetText = isCreative ? -67 + ClientConfig.xDisplayCoins : -20 + ClientConfig.xDisplayCoins;
+            int yOffsetText = isCreative ? -67 + ClientConfig.yDisplayCoins : -20 + ClientConfig.yDisplayCoins;
 
             ImageDisplayRender displayRender = new ImageDisplayRender(gui, xOffsetImage, yOffsetImage, ImageDisplayRender.DISPLAY_VIEW);
             displayRender.renderWidget(event.getGuiGraphics(), 80, 23);

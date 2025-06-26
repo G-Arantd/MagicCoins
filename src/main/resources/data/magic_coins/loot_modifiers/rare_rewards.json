@@ -1,10 +1,11 @@
 {
   "type": "magic_coins:add_item",
-  "conditions": [
-    {
-      "condition": "neoforge:loot_table_id",
-      "loot_table_id": "minecraft:chests/nether_bridge"
-    }
+  "conditions": [],
+  "loot_tables": [
+    "minecraft:chests/bastion_bridge",
+    "minecraft:chests/bastion_hoglin_stable",
+    "minecraft:chests/bastion_other",
+    "minecraft:chests/end_city_treasure"
   ],
   "items": [
     {
@@ -15,7 +16,7 @@
     },
     {
       "item": "magic_coins:gold_coin",
-      "chance": 0.3,
+      "chance": 0.4,
       "min": 2,
       "max": 4
     },

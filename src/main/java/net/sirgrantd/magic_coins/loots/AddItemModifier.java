@@ -7,6 +7,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -24,22 +25,27 @@ public class AddItemModifier extends LootModifier {
     public static final MapCodec<AddItemModifier> CODEC = RecordCodecBuilder.mapCodec(inst ->
         LootModifier.codecStart(inst).and(
             Codec.list(ItemEntry.CODEC.codec()).fieldOf("items").forGetter(e -> e.items)
+        ).and(
+            ResourceLocation.CODEC.listOf().fieldOf("loot_tables").forGetter(e -> e.lootTables)
         ).apply(inst, AddItemModifier::new)
     );
 
     private final List<ItemEntry> items;
+    private final List<ResourceLocation> lootTables;
     private final Random random = new Random();
 
-    public AddItemModifier(LootItemCondition[] conditionsIn, List<ItemEntry> items) {
+    public AddItemModifier(LootItemCondition[] conditionsIn, List<ItemEntry> items, List<ResourceLocation> lootTables) {
         super(conditionsIn);
         this.items = items;
+        this.lootTables = lootTables;
     }
 
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext lootContext) {
-        if (!ServerConfig.coinsLootChests) {
-            return generatedLoot;
-        }
+        if (!ServerConfig.coinsLootChests) return generatedLoot;
+
+        ResourceLocation currentLootTable = lootContext.getQueriedLootTableId();
+        if (!lootTables.contains(currentLootTable)) return generatedLoot;
 
         for (ItemEntry entry : items) {
             if (random.nextFloat() <= entry.chance) {
@@ -47,6 +53,7 @@ public class AddItemModifier extends LootModifier {
                 generatedLoot.add(new ItemStack(entry.item, count));
             }
         }
+
         return generatedLoot;
     }
 
