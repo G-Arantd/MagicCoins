@@ -48,8 +48,8 @@ public class MagicCoinsApi {
         coinsInBag.syncCoinsInBag(entity);
     }
 
-    public static int getPercentageCoinsLostOnDeath() {
-        return ServerConfig.percentageCoinsLostOnDeath;
+    public static int getPercentageCoinsSaveOnDeath() {
+        return ServerConfig.percentageCoinsSaveOnDeath;
     }
 
     // Feature: Coins values

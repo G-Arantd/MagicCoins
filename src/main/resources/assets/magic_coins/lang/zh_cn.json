@@ -3,5 +3,16 @@
     "item.magic_coins.silver_coin": "银币",
     "item.magic_coins.gold_coin": "金币",
     "item.magic_coins.crystal_coin": "水晶币",
-    "item.magic_coins.prosperity_amulet": "繁荣护符"
+    "item.magic_coins.prosperity_amulet": "繁荣护符",
+    "item.prosperity_amulet.description_0.effect_0": "保护你的硬币",
+    "item.prosperity_amulet.description_1.effect_0": "如果你死亡，保护你的钱包",
+    "item.prosperity_amulet.description_0.effect_1": "当生命值低于50%时",
+    "item.prosperity_amulet.description_1.effect_1": "在3秒内给予再生I效果",
+    "command.coins.rank.title": "富豪排行榜",
+    "command.coins.rank.page": "页面",
+    "command.coins.rank.error.page": "无效页面！请选择1到",
+    "command.coins.add.success.singular": "%2$s 收到了 %1$d 硬币",
+    "command.coins.add.success.plural": "%2$s 收到了 %1$d 硬币",
+    "command.coins.set.success.singular": "%2$s 现在有 %1$d 个硬币。",
+    "command.coins.set.success.plural": "%2$s 现在有 %1$d 个硬币。"
 }

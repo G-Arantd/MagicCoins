@@ -26,7 +26,7 @@ public class LostCoinsForDeath {
         boolean isCoinsLostOnDeath = MagicCoinsApi.isCoinsLostOnDeath(player);
 
         if (totalCoins > 0) {
-            double lossFactor = isCoinsLostOnDeath ? 1.0 : ServerConfig.percentageCoinsLostOnDeath/100.0;
+            double lossFactor = isCoinsLostOnDeath ? 1.0 : ServerConfig.percentageCoinsSaveOnDeath/100.0;
 
             int newTotalCoins = (int) Math.round(totalCoins * lossFactor);
             MagicCoinsApi.setTotalCoins(player, newTotalCoins);

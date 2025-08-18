@@ -3,5 +3,16 @@
     "item.magic_coins.silver_coin": "Moneda de Plata",
     "item.magic_coins.gold_coin": "Moneda de Oro",
     "item.magic_coins.crystal_coin": "Moneda de Cristal",
-    "item.magic_coins.prosperity_amulet": "Amuleto de la Prosperidad"
+    "item.magic_coins.prosperity_amulet": "Amuleto de la Prosperidad",
+    "item.prosperity_amulet.description_0.effect_0": "Protege las monedas en",
+    "item.prosperity_amulet.description_1.effect_0": "tu bolsa caso tú mueras",
+    "item.prosperity_amulet.description_0.effect_1": "Cuando la vida esté por debajo del 50%",
+    "item.prosperity_amulet.description_1.effect_1": "Concede efecto de regeneración I por 3s",
+    "command.coins.rank.title": "Clasificación de Magnates",
+    "command.coins.rank.page": "Página",
+    "command.coins.rank.error.page": "¡Página inválida! Elija entre 1 y",
+    "command.coins.add.success.singular": "%2$s recibió %1$d moneda",
+    "command.coins.add.success.plural": "%2$s recibió %1$d monedas",
+    "command.coins.set.success.singular": "Se estableció %1$d moneda para %2$s.",
+    "command.coins.set.success.plural": "Se establecieron %1$d monedas para %2$s."
 }

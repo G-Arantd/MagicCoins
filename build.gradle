@@ -20,9 +20,21 @@ neoForge {
             jvmArgument "-Xmx2G"
             jvmArgument "-XX:+UseG1GC"
             jvmArgument "-Dfile.encoding=UTF-8"
+            gameDirectory = file('run/main_client')
+            programArgument "--username=MainDev"
+        }
+        client2 {
+            client()
+            jvmArgument "-Xms512m"
+            jvmArgument "-Xmx2G"
+            jvmArgument "-XX:+UseG1GC"
+            jvmArgument "-Dfile.encoding=UTF-8"
+            gameDirectory = file('run/off_client')
+            programArgument "--username=OffDev"
         }
         server {
             server()
+            gameDirectory = file('run/server')
         }
 
         configureEach {

@@ -1,4 +1,4 @@
-package net.sirgrantd.magic_coins.items;
+package net.sirgrantd.magic_coins.api;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -12,11 +12,15 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import net.sirgrantd.magic_coins.init.SoundsInit;
-import net.sirgrantd.magic_coins.api.MagicCoinsApi;
 
-public abstract class BaseCoinItem extends Item {
+public abstract class BaseCoinItemApi extends Item {
 
-    public BaseCoinItem(Rarity rarity) {
+    /*
+        If you want to add new coins to the mod or merge it with other mods, this class 
+        allows you to create an item with all the functionalities of the mod's native coins.
+    */
+
+    public BaseCoinItemApi(Rarity rarity) {
         super(new Item.Properties().stacksTo(64).fireResistant().rarity(rarity));
     }
 
