@@ -64,11 +64,13 @@ public class CoinsCommand {
         }.getEntity();
 
         MagicCoinsApi.addCoins(player, amount);
-
-        String message = Component.translatable(
-            amount == 1 ? "command.coins.add.success.singular" : "command.coins.add.success.plural",
-            amount, player.getName().getString()
+        String coinText = Component.translatable(
+            amount == 1 ? "text.coin" : "text.coins"
         ).getString();
+        String message = Component.translatable(
+            "command.coins.add.success"
+        ).getString();
+        message = String.format(message, amount, player.getName().getString(), coinText);
         arguments.getSource().sendSystemMessage(
             Component.literal("§a" + message)
         );
@@ -98,10 +100,13 @@ public class CoinsCommand {
         }.getEntity();
 
         MagicCoinsApi.setTotalCoins(player, amount);
-        String message = Component.translatable(
-            amount == 1 ? "command.coins.set.success.singular" : "command.coins.set.success.plural",
-            amount, player.getName().getString()
+        String coinText = Component.translatable(
+            amount == 1 ? "text.coin" : "text.coins"
         ).getString();
+        String message = Component.translatable(
+            "command.coins.set.success"
+        ).getString();
+        message = String.format(message, amount, player.getName().getString(), coinText);
         arguments.getSource().sendSystemMessage(
             Component.literal("§a" + message)
         );
@@ -142,6 +147,7 @@ public class CoinsCommand {
     private static int rankCoins(CommandContext<CommandSourceStack> arguments, int page) {
         MinecraftServer server = arguments.getSource().getServer();
 
+        // Map of online player UUIDs for quick lookup
         Map<String, PlayerOnlineInfo> playersOnlineMap = server.getPlayerList().getPlayers().stream()
             .map(p -> new PlayerOnlineInfo(p, p.getUUID().toString()))
             .collect(Collectors.toMap(PlayerOnlineInfo::uuid, p -> p));
@@ -149,6 +155,7 @@ public class CoinsCommand {
         File playerDataFolder = server.getWorldPath(LevelResource.PLAYER_DATA_DIR).toFile();
         List<PlayerCoinsInfo> ranking = new ArrayList<>();
 
+        // Add online players to ranking
         for (PlayerOnlineInfo onlineInfo : playersOnlineMap.values()) {
             int coins = MagicCoinsApi.getTotalCoins(onlineInfo.player());
             String name = onlineInfo.player().getName().getString();
@@ -162,25 +169,28 @@ public class CoinsCommand {
                 try {
                     String fileUUID = file.getName().replace(".dat", "");
 
+                    // Skip if player is online (already added above)
+                    if (playersOnlineMap.containsKey(fileUUID)) {
+                        continue;
+                    }
+
                     int coins = 0;
                     String name = fileUUID;
 
-                    if (!playersOnlineMap.containsKey(fileUUID)) {
-                        CompoundTag nbt = NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap());
-                        UUID uuid = UUID.fromString(fileUUID);
-                        name = server.getProfileCache().get(uuid).map(GameProfile::getName).orElse(uuid.toString());
+                    CompoundTag nbt = NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap());
+                    UUID uuid = UUID.fromString(fileUUID);
+                    name = server.getProfileCache().get(uuid).map(GameProfile::getName).orElse(uuid.toString());
 
-                        coins = 0;
-                        if (nbt.contains("neoforge:attachments")) {
-                            CompoundTag attachments = nbt.getCompound("neoforge:attachments");
-                            String key = MagicCoinsMod.MODID + ":coins_in_bag";
-                            if (attachments.contains(key)) {
-                                coins = attachments.getCompound(key).getInt("ValueTotalInCoins");
-                            }
+                    coins = 0;
+                    if (nbt.contains("neoforge:attachments")) {
+                        CompoundTag attachments = nbt.getCompound("neoforge:attachments");
+                        String key = MagicCoinsMod.MODID + ":coins_in_bag";
+                        if (attachments.contains(key)) {
+                            coins = attachments.getCompound(key).getInt("ValueTotalInCoins");
                         }
                     }
+
                     ranking.add(new PlayerCoinsInfo(name, coins));
-                    
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -193,20 +203,19 @@ public class CoinsCommand {
         int pageSize = 10;
         int totalPages = (int) Math.ceil((double) ranking.size() / pageSize);
 
-        String errorPage = Component.translatable("command.coins.rank.error.page").getString(); 
+        if (page < 1) {
+            page = 1;
+        }
 
-        if (page < 1 || page > totalPages) {
-            arguments.getSource().sendSystemMessage(Component.literal(
-                String.format("§c%s %d.", errorPage, totalPages)
-            ));
-            return 0;
+        if (page > totalPages) {
+            page = totalPages;
         }
 
         int start = (page - 1) * pageSize;
         int end = Math.min(start + pageSize, ranking.size());
 
         String title = Component.translatable("command.coins.rank.title").getString();
-        String pageText = Component.translatable("command.coins.rank.page").getString();
+        String pageText = Component.translatable("text.page").getString();
         arguments.getSource().sendSystemMessage(Component.literal(
             String.format("§6-> %s (%s %d/%d) <-", title, pageText, page, totalPages)
         ));
